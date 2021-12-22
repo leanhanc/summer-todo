@@ -1,0 +1,17 @@
+:root {
+	--primary: rgba(255, 225, 168, 1);
+	--secondary: rgba(226, 109, 92, 1);
+	--success: rgba(77, 209, 191, 1);
+	--dark-1: rgba(71, 45, 48, 1);
+	--dark-2: rgba(45, 45, 52, 0.5);
+	--dark-3: rgba(10, 9, 8, 0.7);
+	--light-1: rgba(219, 214, 210, 1);
+	--background: rgba(79, 53, 90, 1);
+	--error: rgba(136, 13, 30, 1);
+}
+
+body {
+	background: var(--background);
+	color: var(--dark);
+	font-family: 'Inter', sans-serif;
+}

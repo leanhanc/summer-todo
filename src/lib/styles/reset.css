@@ -197,3 +197,6 @@ progress {
 [aria-disabled='true'] {
 	cursor: default;
 }
+ul {
+	list-style: none;
+}

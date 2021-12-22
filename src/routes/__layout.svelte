@@ -1,6 +1,4 @@
 <script context="module">
-	import { browser } from '$app/env';
-
 	export async function load({ session }) {
 		return {
 			props: {
@@ -55,25 +53,18 @@
 	}
 </script>
 
-<main>
+<div id="layout">
 	<slot />
-	<h1>Welcome to my app!</h1>
-	<h2>Sign up!</h2>
-	<form on:submit|preventDefault={signUp}>
-		<label for="email">Email</label>
-		<input class="block p-2 rounded" id="email" name="email" type="email" /><br />
-		<label for="password">Password</label>
-		<input class="block p-2 rounded" id="password" name="password" type="password" /><br />
-		<button class="p-2 rounded block mx-auto">Sign Up</button>
-	</form>
-	<h2>..or Log in!</h2>
-	<form on:submit|preventDefault={signIn}>
-		<label for="email">Email</label>
-		<input class="block p-2 rounded" id="email" name="email" type="email" /><br />
-		<label for="password">Password</label>
-		<input class="block p-2 rounded" id="password" name="password" type="password" /><br />
-		<button class="p-2 rounded block mx-auto">Login</button>
-	</form>
+</div>
 
-	{JSON.stringify($user)}
-</main>
+<style>
+	#layout {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		min-height: 100vh;
+		padding: 1rem;
+	}
+</style>
