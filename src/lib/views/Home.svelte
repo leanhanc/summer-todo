@@ -4,5 +4,13 @@
 	import ToDo from '@components/Notepad.svelte';
 </script>
 
-<Header />
-<ToDo />
+<main>
+	<Header />
+	<ToDo />
+</main>
+
+<style lang="scss">
+	main {
+		position: relative;
+	}
+</style>

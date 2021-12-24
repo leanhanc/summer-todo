@@ -50,8 +50,10 @@
 	.background {
 		background: black;
 		inset: 0;
-		opacity: 0.6;
+		opacity: 0.8;
 		position: fixed;
 		z-index: 1000;
+		width: 100vw;
+		height: 100vh;
 	}
 </style>

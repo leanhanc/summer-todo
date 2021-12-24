@@ -7,6 +7,7 @@
 	// Components
 	import Modal from './Modal.svelte';
 	import NewTodoForm from './NewTodoForm.svelte';
+	import AddButton from './AddButton.svelte';
 
 	// State
 	export let items = [];
@@ -55,10 +56,11 @@
 		{/each}
 		<ul />
 	</div>
+	<AddButton buttonHandler={toggleModal} />
+
 	<Modal {isModalOpen}>
 		<NewTodoForm bind:isModalOpen />
 	</Modal>
-	<button on:click={toggleModal}>NEW TODO</button>
 {/if}
 
 <style lang="scss">
@@ -70,6 +72,7 @@
 		min-height: 300px;
 		max-height: 66vh;
 		overflow: scroll;
+		position: relative;
 		padding: 3rem 2rem;
 		width: 100%;
 	}
