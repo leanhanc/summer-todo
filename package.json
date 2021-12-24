@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^1.8.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
@@ -31,6 +32,8 @@
   },
   "type": "module",
   "dependencies": {
-    "cookie": "^0.4.1"
+    "@leveluptuts/svelte-toy": "^0.0.15",
+    "cookie": "^0.4.1",
+    "uuid": "^8.3.2"
   }
 }

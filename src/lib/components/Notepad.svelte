@@ -1,48 +1,39 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	export let items = [
-		{
-			id: 1,
-			title: 'Vender Macbook',
-			content: 'En Mercado Libre por, al menos, $100.000',
-			isDone: false,
-		},
-		{
-			id: 2,
-			title: 'Vender PS4',
-			content: 'En Mercado Libre por, al menos, $50.000',
-			isDone: false,
-		},
-		{
-			id: 3,
-			title: 'Comprar CEDEARs',
-			content: 'Comprar CEDEAR de Apple para ahorrar en dólares',
-			isDone: true,
-		},
-		{
-			id: 4,
-			title: 'Star Trek',
-			content: 'Terminar La Serie Original y comenzar Prodigy',
-			isDone: false,
-		},
-		{
-			id: 5,
-			title: '20 años del 2001',
-			content: 'Ver la serie de Netflix y el documental de Berco/César González',
-			isDone: false,
-		},
-	];
+	// Stores
+	import todoStore from '../stores/todos';
+
+	// Components
+	import Modal from './Modal.svelte';
+	import NewTodoForm from './NewTodoForm.svelte';
+
+	// State
+	export let items = [];
+	export let isModalOpen = false;
+
+	// Subscriptions
+	todoStore.subscribe(newValue => {
+		items = newValue;
+	});
+
+	// Handlers
+	export function toggleModal() {
+		isModalOpen = !isModalOpen;
+	}
 
 	export function removeTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLImageElement }) {
-		items = items.filter(item => item.id.toString() !== e.currentTarget.dataset.id);
+		const updatedItems = items.filter(
+			item => item.id.toString() !== e.currentTarget.dataset.id
+		);
+		todoStore.set(updatedItems);
 	}
 </script>
 
 {#if items.length > 0}
 	<div class="notepad">
 		{#each items as item (item.id)}
-			<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} out:fade>
+			<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} in:fade out:fade>
 				<div>
 					<h4 class="item-title">
 						{item.title}
@@ -52,18 +43,22 @@
 					</p>
 				</div>
 				<img
-					data-id={item.id}
+					alt="Remove To Do item"
 					class="item-remove"
+					data-id={item.id}
+					height="24"
 					src="/trash.svg"
 					width="24"
-					height="24"
-					alt="Remove To Do item"
 					on:click={removeTodo}
 				/>
 			</li>
 		{/each}
 		<ul />
 	</div>
+	<Modal {isModalOpen}>
+		<NewTodoForm bind:isModalOpen />
+	</Modal>
+	<button on:click={toggleModal}>NEW TODO</button>
 {/if}
 
 <style lang="scss">
@@ -95,8 +90,8 @@
 		}
 		.item-description {
 			color: var(--dark-2);
-			margin-top: 1rem;
-			font-size: 1.1rem;
+			margin-top: 0.5rem;
+			font-size: 14px;
 		}
 		.item-remove {
 			cursor: pointer;

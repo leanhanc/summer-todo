@@ -20,7 +20,7 @@ const config = {
 					'@api': path.resolve('./src/lib/api'),
 					'@components': path.resolve('./src/lib/components'),
 					'@config': path.resolve('./src/lib/config'),
-					'@utils': path.resolve('./src/lib/utils'),
+					'@lib': path.resolve('./src/lib/utils'),
 					'@stores': path.resolve('./src/lib/stores'),
 					'@styles': path.resolve('./src/lib/styles'),
 					'@views': path.resolve('./src/lib/views'),
