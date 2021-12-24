@@ -1,4 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
+
+// Types
+import type { SupaStorageBucket, SupaTable } from '../../types/db';
 
 const supabaseClient = createClient(
 	import.meta.env.VITE_SUPABASE_URL.toString(),

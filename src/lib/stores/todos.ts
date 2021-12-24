@@ -1,8 +1,10 @@
 import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 
-const storeName = '[todos]';
+// Types
+import type { ToDo } from '../../types/todo';
 
+const storeName = '[todos]';
 const initialValue = browser ? JSON.parse(window.localStorage.getItem(storeName)) : [];
 
 const todoStore = writable<ToDo[]>(initialValue);
