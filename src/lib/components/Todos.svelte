@@ -35,7 +35,7 @@
 	{#if items?.length > 0}
 		<div class="notepad" in:fade out:fade>
 			{#each items as item (item.id)}
-				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} in:fade out:fade>
+				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'}>
 					<div>
 						<h4 class="item-title">
 							{item.title}
@@ -59,7 +59,7 @@
 		</div>
 		<AddButton buttonHandler={toggleModal} />
 	{:else}
-		<button on:click={toggleModal} class="cta-button" in:fade out:fade>Start</button>
+		<button on:click={toggleModal} class="cta-button">Start</button>
 	{/if}
 
 	<Modal {isModalOpen}>
@@ -73,6 +73,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-top: 6rem;
 		min-height: 300px;
 	}
 
@@ -81,7 +82,6 @@
 		border-radius: 5px;
 		min-height: 300px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-		margin-top: 4rem;
 		max-height: 66vh;
 		overflow: scroll;
 		position: relative;
@@ -123,6 +123,6 @@
 
 	.cta-button {
 		background-color: var(--primary);
-		margin-top: 4rem;
+		margin-top: 2rem;
 	}
 </style>
