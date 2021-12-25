@@ -1,12 +1,12 @@
 <script>
-	// your script goes here
+	// Component
 	import Header from '@components/Header.svelte';
-	import ToDo from '@components/Notepad.svelte';
+	import Todos from '@components/Todos.svelte';
 </script>
 
 <main>
 	<Header />
-	<ToDo />
+	<Todos />
 </main>
 
 <style lang="scss">

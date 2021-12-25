@@ -10,9 +10,10 @@
 
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { user } from '@stores/auth';
-
 	import { onMount } from 'svelte';
+
+	// Stores
+	import user from '@stores/auth';
 
 	export let session;
 

@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store';
 
-export const user = writable({
+const user = writable({
 	isGuest: true,
 	user: {},
 });
+
+export default user;

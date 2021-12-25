@@ -4,21 +4,27 @@
 	// Stores
 	import todoStore from '../stores/todos';
 
+	// Types
+	import { Category, ToDo } from '../../types/todo';
+
 	// Props
 	export let isModalOpen = false;
 
 	// Handlers
 	export function handleSubmit(e: Event & { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = Object.fromEntries(new FormData(e.currentTarget)) as Partial<ToDo>;
+
+		if (!data.title || !data.category) return;
+
 		const toDoToSave: ToDo = {
 			id: uuid(),
 			title: data.title,
 			content: data.content,
 			isDone: false,
+			category: Category.OTHER,
 		};
 
 		isModalOpen = false;
-
 		todoStore.set([...$todoStore, toDoToSave]);
 	}
 </script>
@@ -33,6 +39,15 @@
 	<label id="content" class="content">
 		Content
 		<textarea name="content" placeholder="And this is why and how I'll do it" />
+	</label>
+
+	<label id="category" class="category">
+		Category
+		<select name="category">
+			{#each Object.values(Category) as cat (cat)}
+				<option value={cat}>{cat}</option>
+			{/each}
+		</select>
 	</label>
 
 	<button type="submit" class="submit">Add</button>
@@ -60,30 +75,21 @@
 		}
 
 		input[type='text'],
+		select,
 		textarea {
 			margin-left: auto;
 			width: 75%;
 			padding: 1rem;
 		}
 
-		.content {
+		.content,
+		.category {
 			margin-top: 2rem;
-			width: 100%;
 		}
 
 		button.submit {
 			margin-top: 3rem;
 			background-color: var(--primary);
-			padding: 1rem 2rem;
-			border-radius: 4px;
-			letter-spacing: 1.4px;
-			font-weight: 600;
-			min-width: 200px;
-			transition: transform 150ms ease-in-out;
-
-			&:active {
-				transform: scale(0.97);
-			}
 		}
 	}
 </style>

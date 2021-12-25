@@ -31,45 +31,57 @@
 	}
 </script>
 
-{#if items.length > 0}
-	<div class="notepad">
-		{#each items as item (item.id)}
-			<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} in:fade out:fade>
-				<div>
-					<h4 class="item-title">
-						{item.title}
-					</h4>
-					<p class="item-description">
-						{item.content}
-					</p>
-				</div>
-				<img
-					alt="Remove To Do item"
-					class="item-remove"
-					data-id={item.id}
-					height="24"
-					src="/trash.svg"
-					width="24"
-					on:click={removeTodo}
-				/>
-			</li>
-		{/each}
-		<ul />
-	</div>
-	<AddButton buttonHandler={toggleModal} />
+<div class="todos">
+	{#if items?.length > 0}
+		<div class="notepad" in:fade out:fade>
+			{#each items as item (item.id)}
+				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} in:fade out:fade>
+					<div>
+						<h4 class="item-title">
+							{item.title}
+						</h4>
+						<p class="item-description">
+							{item.content}
+						</p>
+					</div>
+					<img
+						alt="Remove To Do item"
+						class="item-remove"
+						data-id={item.id}
+						height="24"
+						src="/trash.svg"
+						width="24"
+						on:click={removeTodo}
+					/>
+				</li>
+			{/each}
+			<ul />
+		</div>
+		<AddButton buttonHandler={toggleModal} />
+	{:else}
+		<button on:click={toggleModal} class="cta-button" in:fade out:fade>Start</button>
+	{/if}
 
 	<Modal {isModalOpen}>
 		<NewTodoForm bind:isModalOpen />
 	</Modal>
-{/if}
+</div>
 
 <style lang="scss">
+	.todos {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		min-height: 300px;
+	}
+
 	.notepad {
 		background-color: #fff;
 		border-radius: 5px;
+		min-height: 300px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 		margin-top: 4rem;
-		min-height: 300px;
 		max-height: 66vh;
 		overflow: scroll;
 		position: relative;
@@ -107,5 +119,10 @@
 	.notepad-item:last-of-type {
 		padding-bottom: 0;
 		border-bottom: none;
+	}
+
+	.cta-button {
+		background-color: var(--primary);
+		margin-top: 4rem;
 	}
 </style>
