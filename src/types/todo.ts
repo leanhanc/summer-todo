@@ -2,8 +2,9 @@ export enum Category {
 	PERSONAL = 'Personal',
 	CAREER = 'Career',
 	SHOPPING = 'Shopping',
-	FINANCIAL = 'Financial',
+	FINANCE = 'Finance',
 	HOME = 'Home',
+	HEALTH = 'Health',
 	OTHER = 'Other',
 }
 

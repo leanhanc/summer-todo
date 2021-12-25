@@ -13,19 +13,24 @@
 	// Handlers
 	export function handleSubmit(e: Event & { currentTarget: EventTarget & HTMLFormElement }) {
 		const data = Object.fromEntries(new FormData(e.currentTarget)) as Partial<ToDo>;
-
-		if (!data.title || !data.category) return;
+		console.log(data);
+		if (!data.title || !data.content) return;
 
 		const toDoToSave: ToDo = {
 			id: uuid(),
 			title: data.title,
 			content: data.content,
 			isDone: false,
-			category: Category.OTHER,
+			category: data.category,
 		};
 
 		isModalOpen = false;
-		todoStore.set([...$todoStore, toDoToSave]);
+
+		if ($todoStore) {
+			todoStore.set([...$todoStore, toDoToSave]);
+		} else {
+			todoStore.set([toDoToSave]);
+		}
 	}
 </script>
 

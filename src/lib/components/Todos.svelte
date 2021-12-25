@@ -8,6 +8,7 @@
 	import Modal from './Modal.svelte';
 	import NewTodoForm from './NewTodoForm.svelte';
 	import AddButton from './AddButton.svelte';
+	import { getIconForCategory } from '../../lib/utils/icons';
 
 	// State
 	export let items = [];
@@ -36,13 +37,16 @@
 		<div class="notepad" in:fade out:fade>
 			{#each items as item (item.id)}
 				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'}>
-					<div>
-						<h4 class="item-title">
-							{item.title}
-						</h4>
-						<p class="item-description">
-							{item.content}
-						</p>
+					<div class="notepad-row">
+						<img src={getIconForCategory(item.category)} alt="Category Icon" />
+						<div class="text-content">
+							<h4 class="item-title">
+								{item.title}
+							</h4>
+							<p class="item-description">
+								{item.content}
+							</p>
+						</div>
 					</div>
 					<img
 						alt="Remove To Do item"
@@ -99,17 +103,28 @@
 			text-decoration: line-through;
 		}
 
-		.item-title {
-			color: var(--dark-3);
-			font-size: 1.3rem;
-		}
-		.item-description {
-			color: var(--dark-2);
-			margin-top: 0.5rem;
-			font-size: 14px;
-		}
-		.item-remove {
-			cursor: pointer;
+		.notepad-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.text-content {
+				flex: 1;
+				padding: 0 2rem;
+			}
+
+			.item-title {
+				color: var(--dark-3);
+				font-size: 1.3rem;
+			}
+			.item-description {
+				color: var(--dark-2);
+				margin-top: 0.5rem;
+				font-size: 14px;
+			}
+			.item-remove {
+				cursor: pointer;
+			}
 		}
 	}
 	.notepad-item:first-of-type {
