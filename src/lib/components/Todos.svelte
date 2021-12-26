@@ -6,12 +6,16 @@
 
 	// Components
 	import Modal from './Modal.svelte';
-	import NewTodoForm from './NewTodoForm.svelte';
+	import TodoForm from './TodoForm.svelte';
 	import AddButton from './AddButton.svelte';
 	import { getIconForCategory } from '../../lib/utils/icons';
 
+	// Types
+	import type { ToDo } from '../../types/todo';
+
 	// State
-	export let items = [];
+	export let items: ToDo[] = [];
+	export let editingTodo: ToDo | null = null;
 	export let isModalOpen = false;
 
 	// Subscriptions
@@ -22,6 +26,14 @@
 	// Handlers
 	export function toggleModal() {
 		isModalOpen = !isModalOpen;
+		if (isModalOpen) {
+			editingTodo = null;
+		}
+	}
+
+	export function editTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLImageElement }) {
+		editingTodo = items.find(item => item.id === e.currentTarget.dataset.id);
+		isModalOpen = true;
 	}
 
 	export function removeTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLImageElement }) {
@@ -36,7 +48,7 @@
 	{#if items?.length > 0}
 		<div class="notepad" in:fade out:fade>
 			{#each items as item (item.id)}
-				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'}>
+				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} data-id={item.id}>
 					<div class="notepad-row">
 						<img src={getIconForCategory(item.category)} alt="Category Icon" />
 						<div class="text-content">
@@ -47,16 +59,25 @@
 								{item.content}
 							</p>
 						</div>
+						<img
+							alt="Remove To Do item"
+							class="item-icon"
+							data-id={item.id}
+							height="24"
+							src="/edit.svg"
+							width="24"
+							on:click={editTodo}
+						/>
+						<img
+							alt="Remove To Do item"
+							class="item-icon"
+							data-id={item.id}
+							height="24"
+							src="/trash.svg"
+							width="24"
+							on:click={removeTodo}
+						/>
 					</div>
-					<img
-						alt="Remove To Do item"
-						class="item-remove"
-						data-id={item.id}
-						height="24"
-						src="/trash.svg"
-						width="24"
-						on:click={removeTodo}
-					/>
 				</li>
 			{/each}
 			<ul />
@@ -66,8 +87,8 @@
 		<button on:click={toggleModal} class="cta-button">Start</button>
 	{/if}
 
-	<Modal {isModalOpen}>
-		<NewTodoForm bind:isModalOpen />
+	<Modal {isModalOpen} {toggleModal}>
+		<TodoForm bind:isModalOpen bind:editingTodo />
 	</Modal>
 </div>
 
@@ -90,7 +111,7 @@
 		overflow: scroll;
 		position: relative;
 		padding: 3rem 2rem;
-		width: 100%;
+		width: 75%;
 	}
 	.notepad-item {
 		display: flex;
@@ -107,10 +128,12 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			width: 100%;
 
 			.text-content {
 				flex: 1;
 				padding: 0 2rem;
+				width: 100%;
 			}
 
 			.item-title {
@@ -121,9 +144,11 @@
 				color: var(--dark-2);
 				margin-top: 0.5rem;
 				font-size: 14px;
+				max-width: 75%;
 			}
-			.item-remove {
+			.item-icon {
 				cursor: pointer;
+				margin-right: 1rem;
 			}
 		}
 	}

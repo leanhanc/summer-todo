@@ -1,21 +1,18 @@
 <script>
 	import { fade } from 'svelte/transition';
 
-	export let isModalOpen = false;
-
-	function closeModal() {
-		isModalOpen = false;
-	}
+	export let isModalOpen;
+	export let toggleModal;
 </script>
 
 {#if isModalOpen}
-	<div class="modal-wrapper" transition:fade>
-		<button on:click={closeModal} class="modal-close" aria-label="Close Modal Box">
+	<div class="modal-wrapper" in:fade>
+		<button on:click={toggleModal} class="modal-close" aria-label="Close Modal Box">
 			&times;
 		</button>
 		<slot />
 	</div>
-	<div on:click={closeModal} transition:fade class="background" />
+	<div on:click={toggleModal} in:fade class="background" />
 {/if}
 
 <style lang="scss">

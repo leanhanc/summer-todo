@@ -14,6 +14,7 @@ body {
 	background: var(--background);
 	color: var(--dark);
 	font-family: 'Inter', sans-serif;
+	line-height: 1.5;
 }
 
 input[type='text'],
