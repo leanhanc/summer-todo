@@ -14,6 +14,10 @@
 			margin: 0 auto;
 			text-shadow: 1px 4px 6px var(--dark-2);
 			font-weight: 700;
+
+			@media screen and (max-width: 768px) {
+				font-size: 4rem;
+			}
 		}
 		h2 {
 			color: var(--light-1);

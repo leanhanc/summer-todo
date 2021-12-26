@@ -96,6 +96,10 @@
 		align-items: center;
 		padding: 1rem;
 
+		@media screen and (max-width: 768px) {
+			padding: 0;
+		}
+
 		.form-header {
 			margin-bottom: 3rem;
 			font-weight: 400;

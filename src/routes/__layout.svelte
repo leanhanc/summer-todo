@@ -58,7 +58,7 @@
 	<slot />
 </div>
 
-<style>
+<style lang="scss">
 	#layout {
 		display: flex;
 		flex-direction: column;
@@ -69,5 +69,9 @@
 		padding: 1rem;
 		margin-bottom: 4rem;
 		position: relative;
+
+		@media screen and (max-width: 768px) {
+			margin-bottom: 2rem;
+		}
 	}
 </style>

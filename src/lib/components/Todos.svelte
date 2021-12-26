@@ -50,33 +50,41 @@
 			{#each items as item (item.id)}
 				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} data-id={item.id}>
 					<div class="notepad-row">
-						<img src={getIconForCategory(item.category)} alt="Category Icon" />
-						<div class="text-content">
-							<h4 class="item-title">
-								{item.title}
-							</h4>
-							<p class="item-description">
-								{item.content}
-							</p>
+						<div class="item-details">
+							<img
+								src={getIconForCategory(item.category)}
+								alt="Category Icon"
+								class="category-icon"
+							/>
+							<div class="text-content">
+								<h4 class="item-title">
+									{item.title}
+								</h4>
+								<p class="item-description">
+									{item.content}
+								</p>
+							</div>
 						</div>
-						<img
-							alt="Remove To Do item"
-							class="item-icon"
-							data-id={item.id}
-							height="24"
-							src="/edit.svg"
-							width="24"
-							on:click={editTodo}
-						/>
-						<img
-							alt="Remove To Do item"
-							class="item-icon"
-							data-id={item.id}
-							height="24"
-							src="/trash.svg"
-							width="24"
-							on:click={removeTodo}
-						/>
+						<div class="item-options">
+							<img
+								alt="Remove To Do item"
+								class="item-icon"
+								data-id={item.id}
+								height="24"
+								src="/edit.svg"
+								width="24"
+								on:click={editTodo}
+							/>
+							<img
+								alt="Remove To Do item"
+								class="item-icon"
+								data-id={item.id}
+								height="24"
+								src="/trash.svg"
+								width="24"
+								on:click={removeTodo}
+							/>
+						</div>
 					</div>
 				</li>
 			{/each}
@@ -113,6 +121,7 @@
 		padding: 3rem 2rem;
 		width: 75%;
 	}
+
 	.notepad-item {
 		display: flex;
 		align-items: center;
@@ -130,26 +139,67 @@
 			justify-content: space-between;
 			width: 100%;
 
+			@media screen and (max-width: 768px) {
+				width: 100%;
+				flex-wrap: wrap;
+			}
+
+			.item-details {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+				max-width: 75%;
+
+				@media screen and (max-width: 768px) {
+					max-width: none;
+				}
+
+				.category-icon {
+					@media screen and (max-width: 768px) {
+						align-self: start;
+						padding-top: 1rem;
+						max-width: none;
+					}
+				}
+			}
+
+			.item-options {
+				@media screen and (max-width: 768px) {
+					width: 100%;
+					display: flex;
+					margin-top: 2rem;
+					justify-content: center;
+					justify-self: flex-end;
+					flex: 1;
+
+					.item-icon {
+						cursor: pointer;
+						margin-right: 1rem;
+					}
+				}
+			}
+
 			.text-content {
 				flex: 1;
 				padding: 0 2rem;
-				width: 100%;
+				width: 75%;
+				@media screen and (max-width: 768px) {
+					width: 100%;
+					padding: 0 1rem;
+				}
 			}
+		}
 
-			.item-title {
-				color: var(--dark-3);
-				font-size: 1.3rem;
-			}
-			.item-description {
-				color: var(--dark-2);
-				margin-top: 0.5rem;
-				font-size: 14px;
-				max-width: 75%;
-			}
-			.item-icon {
-				cursor: pointer;
-				margin-right: 1rem;
-			}
+		.item-title {
+			color: var(--dark-3);
+			font-size: 1.3rem;
+		}
+		.item-description {
+			color: var(--dark-2);
+			margin-top: 0.5rem;
+			font-size: 14px;
+			width: 100%;
 		}
 	}
 	.notepad-item:first-of-type {
