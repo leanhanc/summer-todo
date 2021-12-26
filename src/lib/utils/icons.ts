@@ -1,10 +1,10 @@
 // Assets
-import bag from '/bag.svg';
-import cart from '/cart.svg';
-import heart from '/heart.svg';
-import home from '/home.svg';
-import medKit from '/med-kit.svg';
-import chart from '/chart.svg';
+import bag from '../../../static/bag.svg';
+import cart from '../../../static/cart.svg';
+import heart from '../../../static/heart.svg';
+import home from '../../../static/home.svg';
+import medKit from '../../../static/med-kit.svg';
+import chart from '../../../static/chart.svg';
 
 // Types
 import { Category } from '../../types/todo';
