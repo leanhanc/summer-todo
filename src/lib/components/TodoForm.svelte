@@ -56,7 +56,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit} class="new-todo">
+<form on:submit|preventDefault={handleSubmit} class="todo-form">
 	<h2 class="form-header">New task</h2>
 	<label id="title" class="title">
 		Title
@@ -90,7 +90,7 @@
 </form>
 
 <style lang="scss">
-	.new-todo {
+	.todo-form {
 		display: flex;
 		flex-direction: column;
 		align-items: center;

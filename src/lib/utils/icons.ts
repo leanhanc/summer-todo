@@ -1,28 +1,22 @@
-// Assets
-import bag from '../../../static/bag.svg';
-import cart from '../../../static/cart.svg';
-import heart from '../../../static/heart.svg';
-import home from '../../../static/home.svg';
-import medKit from '../../../static/med-kit.svg';
-import chart from '../../../static/chart.svg';
-
 // Types
 import { Category } from '../../types/todo';
 import type { ToDo } from '../../types/todo';
 
+const baseClassName = 'category-icon fas fa';
+
 export const getIconForCategory = (category: ToDo['category']) => {
 	switch (category) {
 		case Category.HOME:
-			return home;
+			return `${baseClassName}-home`;
 		case Category.CAREER:
-			return bag;
+			return `${baseClassName}-briefcase`;
 		case Category.HEALTH:
-			return medKit;
+			return `${baseClassName}-heartbeat`;
 		case Category.PERSONAL:
-			return heart;
+			return `${baseClassName}-heart`;
 		case Category.FINANCE:
-			return chart;
+			return `${baseClassName}-dollar-sign`;
 		default:
-			return cart;
+			return `${baseClassName}-shopping-cart`;
 	}
 };

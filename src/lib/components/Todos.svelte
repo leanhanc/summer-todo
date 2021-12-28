@@ -31,16 +31,35 @@
 		}
 	}
 
-	export function editTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLImageElement }) {
+	$: {
+		console.log($todoStore);
+	}
+
+	export function editTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }) {
 		editingTodo = items.find(item => item.id === e.currentTarget.dataset.id);
 		isModalOpen = true;
 	}
 
-	export function removeTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLImageElement }) {
+	export function removeTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }) {
 		const updatedItems = items.filter(
 			item => item.id.toString() !== e.currentTarget.dataset.id
 		);
 		todoStore.set(updatedItems);
+	}
+
+	export function toggleToDoStatus(
+		e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }
+	) {
+		const indexOfTodo = $todoStore.findIndex(todo => todo.id === e.currentTarget.dataset.id);
+
+		todoStore.set([
+			...$todoStore.slice(0, indexOfTodo),
+			($todoStore[indexOfTodo] = {
+				...$todoStore[indexOfTodo],
+				isDone: !$todoStore[indexOfTodo].isDone,
+			}),
+			...$todoStore.slice(indexOfTodo + 1),
+		]);
 	}
 </script>
 
@@ -50,13 +69,9 @@
 			{#each items as item (item.id)}
 				<li class={item.isDone ? 'notepad-item checked' : 'notepad-item'} data-id={item.id}>
 					<div class="notepad-row">
-						<div class="item-details">
-							<img
-								src={getIconForCategory(item.category)}
-								alt="Category Icon"
-								class="category-icon"
-							/>
-							<div class="text-content">
+						<div class="item-details" class:done={item.isDone}>
+							<li class={getIconForCategory(item.category)} alt="Category Icon" />
+							<div class="text-content" data-id={item.id}>
 								<h4 class="item-title">
 									{item.title}
 								</h4>
@@ -66,24 +81,35 @@
 							</div>
 						</div>
 						<div class="item-options">
-							<img
-								alt="Remove To Do item"
-								class="item-icon"
-								data-id={item.id}
-								height="24"
-								src="/edit.svg"
-								width="24"
-								on:click={editTodo}
-							/>
-							<img
-								alt="Remove To Do item"
-								class="item-icon"
-								data-id={item.id}
-								height="24"
-								src="/trash.svg"
-								width="24"
-								on:click={removeTodo}
-							/>
+							<span on:click={toggleToDoStatus} data-id={item.id}>
+								<li
+									alt="Toggle done status"
+									class="item-icon fas fa-check"
+									disabled={item.isDone}
+									height="24"
+									src="/edit.svg"
+									width="24"
+								/>
+							</span>
+							<span on:click={editTodo} data-id={item.id}>
+								<li
+									alt="Edit To Do item"
+									class="item-icon fas fa-edit edit"
+									height="24"
+									src="/edit.svg"
+									width="24"
+								/>
+							</span>
+							<span on:click={removeTodo} data-id={item.id}>
+								<li
+									alt="Remove To Do item"
+									class="item-icon fas fa-trash trash"
+									height="24"
+									src="/trash.svg"
+									width="24"
+									on:click={removeTodo}
+								/>
+							</span>
 						</div>
 					</div>
 				</li>
@@ -120,6 +146,10 @@
 		position: relative;
 		padding: 3rem 2rem;
 		width: 75%;
+
+		.done * {
+			color: var(--success) !important;
+		}
 	}
 
 	.notepad-item {
@@ -130,7 +160,7 @@
 		border-bottom: 2px solid var(--light-1);
 
 		&.checked {
-			text-decoration: line-through;
+			color: var(--success);
 		}
 
 		.notepad-row {
@@ -158,13 +188,25 @@
 				.category-icon {
 					@media screen and (max-width: 768px) {
 						align-self: start;
-						padding-top: 1rem;
-						max-width: none;
+						top: 8px;
+						position: relative;
 					}
 				}
 			}
 
 			.item-options {
+				.item-icon {
+					cursor: pointer;
+					margin-right: 1rem;
+
+					&.trash {
+						color: var(--error);
+					}
+
+					&.edit {
+						color: var(--dark-3);
+					}
+				}
 				@media screen and (max-width: 768px) {
 					width: 100%;
 					display: flex;
@@ -172,7 +214,6 @@
 					justify-content: center;
 					justify-self: flex-end;
 					flex: 1;
-
 					.item-icon {
 						cursor: pointer;
 						margin-right: 1rem;
@@ -184,22 +225,24 @@
 				flex: 1;
 				padding: 0 2rem;
 				width: 75%;
+
+				.item-title {
+					color: var(--dark-3);
+					font-size: 1.3rem;
+				}
+
+				.item-description {
+					color: var(--dark-2);
+					margin-top: 0.5rem;
+					font-size: 14px;
+					width: 100%;
+				}
+
 				@media screen and (max-width: 768px) {
 					width: 100%;
 					padding: 0 1rem;
 				}
 			}
-		}
-
-		.item-title {
-			color: var(--dark-3);
-			font-size: 1.3rem;
-		}
-		.item-description {
-			color: var(--dark-2);
-			margin-top: 0.5rem;
-			font-size: 14px;
-			width: 100%;
 		}
 	}
 	.notepad-item:first-of-type {
