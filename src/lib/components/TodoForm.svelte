@@ -79,7 +79,7 @@
 
 	<label id="category" class="category">
 		Category
-		<select name="category" value={editingTodo ? editingTodo.category : ''}>
+		<select name="category" value={editingTodo ? editingTodo.category : Category.PERSONAL}>
 			{#each Object.values(Category) as cat (cat)}
 				<option value={cat}>{cat}</option>
 			{/each}

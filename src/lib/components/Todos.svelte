@@ -31,10 +31,6 @@
 		}
 	}
 
-	$: {
-		console.log($todoStore);
-	}
-
 	export function editTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }) {
 		editingTodo = items.find(item => item.id === e.currentTarget.dataset.id);
 		isModalOpen = true;
