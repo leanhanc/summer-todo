@@ -9,17 +9,17 @@
 </script>
 
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	// Stores
-	import user from '@stores/auth';
+	import authStore from '@stores/auth';
+	import User from '@components/User.svelte';
 
 	export let session;
 
 	onMount(async () => {
 		if (session) {
-			user.set({
+			authStore.set({
 				isGuest: false,
 				user: {
 					id: session.user.id,
@@ -28,33 +28,10 @@
 			});
 		}
 	});
-
-	async function signUp(e) {
-		const response = await fetch('/signup', {
-			method: 'POST',
-			body: new FormData(e.target),
-		});
-		if (response.ok) {
-			goto('/');
-		} else {
-			console.log(await response.text());
-		}
-	}
-
-	async function signIn(e) {
-		const response = await fetch('/auth/login.json', {
-			method: 'POST',
-			body: new FormData(e.target),
-		});
-		if (response.ok) {
-			goto('/');
-		} else {
-			console.log(await response.text());
-		}
-	}
 </script>
 
 <div id="layout">
+	<User />
 	<slot />
 </div>
 

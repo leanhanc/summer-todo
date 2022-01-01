@@ -46,6 +46,8 @@ abbr[title] {
 }
 a {
 	background-color: transparent;
+	text-decoration: none;
+	color: unset;
 }
 a:active,
 a:hover {

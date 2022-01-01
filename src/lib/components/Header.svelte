@@ -6,6 +6,7 @@
 <style lang="scss">
 	header {
 		text-align: center;
+		padding-top: 2rem;
 
 		h1 {
 			color: var(--primary);

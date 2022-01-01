@@ -5,6 +5,7 @@
 	--dark-2: rgba(45, 45, 52, 0.5);
 	--dark-3: rgba(10, 9, 8, 0.7);
 	--light-1: rgba(219, 214, 210, 1);
+	--light-2: rgba(244, 242, 241, 0.8);
 	--background: rgba(79, 53, 90, 1);
 	--error: rgba(136, 13, 30, 1);
 }
@@ -30,8 +31,8 @@ button {
 	font-weight: 600;
 
 	transition: transform 150ms ease-in-out;
+}
 
-	&:active {
-		transform: scale(0.97);
-	}
+button:active {
+	transform: scale(0.97);
 }
