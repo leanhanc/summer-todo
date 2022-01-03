@@ -21,18 +21,6 @@
 		}
 	}
 
-	async function signIn(e) {
-		const response = await fetch('/auth/login.json', {
-			method: 'POST',
-			body: new FormData(e.target),
-		});
-		if (response.ok) {
-			goto('/');
-		} else {
-			console.log(await response.text());
-		}
-	}
-
 	authStore.subscribe(store => {
 		isGuest = store.isGuest;
 		userData = store.user;
