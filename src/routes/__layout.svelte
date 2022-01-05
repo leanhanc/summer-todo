@@ -41,11 +41,11 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 100%;
-		min-height: 100vh;
+		min-height: 100%;
 		padding: 1rem;
 		margin-bottom: 4rem;
 		position: relative;
+		margin: auto;
 
 		@media screen and (max-width: 768px) {
 			margin-bottom: 2rem;

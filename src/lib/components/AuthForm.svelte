@@ -1,26 +1,10 @@
 <script>
-	import { goto } from '$app/navigation';
-
-	import supabaseClient from '@api/supabase';
-
 	export let email = '';
 	export let password = '';
-
-	async function signIn(e) {
-		const { user, error } = await supabaseClient.auth.signIn({
-			email,
-			password,
-		});
-
-		if (user.id) {
-			goto('/');
-		} else {
-			console.log('[login]: ' + error);
-		}
-	}
+	export let onSumbit = () => {};
 </script>
 
-<form class="card" on:submit|preventDefault={signIn}>
+<form class="card" on:submit|preventDefault={onSumbit}>
 	<label id="title" class="label">
 		Email
 		<input
@@ -29,6 +13,7 @@
 			placeholder="example@gmail.com"
 			bind:value={email}
 			class="input"
+			required
 		/>
 	</label>
 	<label id="title" class="label">
@@ -39,6 +24,7 @@
 			placeholder="*******"
 			bind:value={password}
 			class="input"
+			required
 		/>
 	</label>
 

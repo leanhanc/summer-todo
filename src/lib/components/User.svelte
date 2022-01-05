@@ -9,18 +9,6 @@
 	export let isGuest = false;
 	export let userData = null;
 
-	async function signUp(e) {
-		const response = await fetch('/signup', {
-			method: 'POST',
-			body: new FormData(e.target),
-		});
-		if (response.ok) {
-			goto('/');
-		} else {
-			console.log(await response.text());
-		}
-	}
-
 	authStore.subscribe(store => {
 		isGuest = store.isGuest;
 		userData = store.user;
@@ -29,9 +17,7 @@
 
 <div class="user">
 	{#if isGuest}
-		<a href="/login"><i class="fas fa-sign-in-alt icon" />Sign In</a>
-	{:else}
-		<span> Hola! </span>
+		<a class="cta" href="/auth/register"><i class="fas fa-sign-in-alt icon" />Register</a>
 	{/if}
 </div>
 
@@ -44,6 +30,10 @@
 		top: 1rem;
 		right: 1rem;
 		width: 100%;
+
+		.cta {
+			font-size: 14px;
+		}
 
 		a {
 			color: var(--light-1);

@@ -141,7 +141,7 @@
 		overflow: scroll;
 		position: relative;
 		padding: 3rem 2rem;
-		width: 75%;
+		width: 100%;
 
 		.done * {
 			color: var(--success) !important;

@@ -4,6 +4,11 @@ html {
 	word-break: normal;
 	-moz-tab-size: 4;
 	tab-size: 4;
+	height: 100%;
+}
+
+body {
+	height: 100%;
 }
 
 *,
