@@ -9,10 +9,16 @@
 </script>
 
 <script lang="ts">
+	// Global CSS
+	import '@styles/reset.css';
+	import '@styles/global.css';
+
 	import { onMount } from 'svelte';
 
 	// Stores
 	import authStore from '@stores/auth';
+
+	// Components
 	import User from '@components/User.svelte';
 
 	export let session;
