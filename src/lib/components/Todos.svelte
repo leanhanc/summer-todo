@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import supabaseClient from '../api/supabase';
 
 	// Stores
+	import authStore from '../stores/auth';
 	import todoStore from '../stores/todos';
 
 	// Components
 	import Modal from './Modal.svelte';
 	import TodoForm from './TodoForm.svelte';
 	import AddButton from './AddButton.svelte';
+
+	// Utils
 	import { getIconForCategory } from '../../lib/utils/icons';
 
 	// Types
@@ -56,6 +60,13 @@
 			}),
 			...$todoStore.slice(indexOfTodo + 1),
 		]);
+	}
+
+	// Reactive declarations
+	$: {
+		if (!$authStore.isGuest && items) {
+			supabaseClient.from('todos').then(() => {});
+		}
 	}
 </script>
 

@@ -1,25 +1,21 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	// Api
-	import supabaseClient from '@api/supabase';
-
 	// Components
 	import AuthForm from '@components/AuthForm.svelte';
 
 	export let email = '';
 	export let password = '';
 
-	let signIn = async e => {
-		const { user, error } = await supabaseClient.auth.signIn({
-			email,
-			password,
+	export let signIn = async e => {
+		const response = await fetch('login.json', {
+			method: 'post',
+			body: new FormData(e.target),
 		});
-
-		if (user.id) {
+		if (response.ok) {
 			goto('/');
 		} else {
-			console.log('[login]: ' + error);
+			console.log('[login]: ', await response.text());
 		}
 	};
 </script>

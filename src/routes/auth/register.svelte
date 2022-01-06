@@ -13,20 +13,16 @@
 	export let email = '';
 	export let password = '';
 
-	let signUp = async () => {
-		const { user, error } = await supabaseClient.auth.signUp({
-			email,
-			password,
+	export let signUp = async e => {
+		const response = await fetch('register.json', {
+			method: 'post',
+			body: new FormData(e.target),
 		});
-
-		if (error) {
-			console.log(error);
-			return;
+		if (response.ok) {
+			goto('/');
+		} else {
+			console.log('[register]: ', await response.text());
 		}
-
-		authStore.set({ isGuest: false, user });
-
-		goto('/');
 	};
 </script>
 
