@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import supabaseClient from '../api/supabase';
 
 	// Stores
-	import authStore from '../stores/auth';
 	import todoStore from '../stores/todos';
 
 	// Components
@@ -36,7 +34,7 @@
 	}
 
 	export function editTodo(e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }) {
-		editingTodo = items.find(item => item.id === e.currentTarget.dataset.id);
+		editingTodo = items.find(item => item.id.toString() === e.currentTarget.dataset.id);
 		isModalOpen = true;
 	}
 
@@ -50,7 +48,9 @@
 	export function toggleToDoStatus(
 		e: MouseEvent & { currentTarget: EventTarget & HTMLSpanElement }
 	) {
-		const indexOfTodo = $todoStore.findIndex(todo => todo.id === e.currentTarget.dataset.id);
+		const indexOfTodo = $todoStore.findIndex(
+			todo => todo.id.toString() === e.currentTarget.dataset.id
+		);
 
 		todoStore.set([
 			...$todoStore.slice(0, indexOfTodo),
@@ -60,13 +60,6 @@
 			}),
 			...$todoStore.slice(indexOfTodo + 1),
 		]);
-	}
-
-	// Reactive declarations
-	$: {
-		if (!$authStore.isGuest && items) {
-			supabaseClient.from('todos').then(() => {});
-		}
 	}
 </script>
 

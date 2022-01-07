@@ -1,43 +1,10 @@
-<script context="module">
-	export async function load({ session }) {
-		return {
-			props: {
-				session,
-			},
-		};
-	}
-</script>
-
 <script lang="ts">
 	// Global CSS
 	import '@styles/reset.css';
 	import '@styles/global.css';
-
-	import { onMount } from 'svelte';
-
-	// Stores
-	import authStore from '@stores/auth';
-
-	// Components
-	import User from '@components/User.svelte';
-
-	export let session;
-
-	onMount(async () => {
-		if (session) {
-			authStore.set({
-				isGuest: false,
-				user: {
-					id: session.user.id,
-					email: session.user.email,
-				},
-			});
-		}
-	});
 </script>
 
 <div id="layout">
-	<User />
 	<slot />
 </div>
 
