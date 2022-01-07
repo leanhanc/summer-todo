@@ -102,8 +102,9 @@
 
 		.form-header {
 			margin-bottom: 3rem;
-			font-weight: 400;
+			font-weight: 600;
 			letter-spacing: 1.1px;
+			color: var(--dark-1);
 		}
 
 		label {

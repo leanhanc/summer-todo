@@ -1,7 +1,7 @@
 <script>
 	export let email = '';
 	export let password = '';
-	export let onSumbit = () => {};
+	export let onSumbit;
 </script>
 
 <form class="card" on:submit|preventDefault={onSumbit}>

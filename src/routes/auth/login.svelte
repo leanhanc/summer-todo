@@ -1,8 +1,14 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 
 	// Components
 	import AuthForm from '@components/AuthForm.svelte';
+
+	// Stores
+	import authStore from '@stores/auth';
+
+	// Types
+	import type { User } from '@supabase/supabase-js';
 
 	export let email = '';
 	export let password = '';
@@ -12,10 +18,21 @@
 			method: 'post',
 			body: new FormData(e.target),
 		});
+
 		if (response.ok) {
+			const parsedResponse: User = await response.json();
+
+			authStore.set({
+				isGuest: false,
+				user: {
+					id: parsedResponse.id,
+					email: parsedResponse.email,
+				},
+			});
+
 			goto('/');
 		} else {
-			console.log('[login]: ', await response.text());
+			console.log('[register]: ', await response.text());
 		}
 	};
 </script>
