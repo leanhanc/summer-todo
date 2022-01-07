@@ -31,6 +31,7 @@
   },
   "type": "module",
   "dependencies": {
-    "cookie": "^0.4.1"
+    "cookie": "^0.4.1",
+    "uuid": "^8.3.2"
   }
 }
